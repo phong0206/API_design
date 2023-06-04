@@ -11,7 +11,7 @@ const getOneWorkout = (req, res) => {
     params: { workoutId },
   } = req;
   if (!workoutId) {
-    return;
+    res.status(404).send({ status: "Not Found" });
   }
   const workout = workoutService.getOneWorkout(workoutId);
   res.send({ status: "OK", data: workout });
@@ -26,7 +26,7 @@ const createNewWorkout = (req, res) => {
     !body.exercises ||
     !body.trainerTips
   ) {
-    return;
+    res.status(404).send({status: "Not Found"})
   }
   const newWorkout = {
     name: body.name,
@@ -45,7 +45,7 @@ const updateOneWorkout = (req, res) => {
     params: { workoutId },
   } = req;
   if (!workoutId) {
-    return;
+    res.status(404).send({ status: "Not Found" });
   }
   const updatedWorkout = workoutService.updateOneWorkout(workoutId, body);
   res.send({ status: "OK", data: updatedWorkout });
@@ -56,7 +56,7 @@ const deleteOneWorkout = (req, res) => {
     params: { workoutId },
   } = req;
   if (!workoutId) {
-    return;
+    res.status(404).send({ status: "Not Found" });
   }
   workoutService.deleteOneWorkout(workoutId);
   res.status(204).send({ status: "OK" });
